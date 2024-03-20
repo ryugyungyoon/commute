@@ -10,27 +10,36 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeSeq = null;
+    @Column(name = "EMPLOYEE_SEQ")
+    private Long employeeSeq;
     @Column(nullable = false, length = 10)
     private String name;
-    @Column(nullable = false, length = 20)
-    private String teamName;
+    @Column(nullable = true)
+    private Long teamSeq;
     @Column(nullable = false, length = 7)
     private String role;
+    @Column(nullable = false)
     private Date birthday;
+    @Column(nullable = false)
     private Date workStartDate;
 
     protected Employee() {};
 
     public Employee(EmployeeCreateRequest reqDto){
-        if(reqDto.getName() == null || reqDto.getName().isBlank() ||
-            reqDto.getRole() == null || reqDto.getRole().isBlank() ||
-            reqDto.getBirthday() == null || String.valueOf(reqDto.getBirthday()).isBlank() ||
-            reqDto.getWorkStartDate() == null || String.valueOf(reqDto.getWorkStartDate()).isBlank()){
-            throw new IllegalArgumentException(String.format("잘못된 정보가 들어왔습니다."));
+        if(reqDto.getName() == null || reqDto.getName().isBlank()){
+            throw new IllegalArgumentException(String.format("잘못된 name(%s) 들어왔습니다.", reqDto.getName()));
+        }
+        else if(reqDto.getRole() == null || reqDto.getRole().isBlank()){
+            throw new IllegalArgumentException(String.format("잘못된 role(%s) 들어왔습니다.", reqDto.getRole()));
+        }
+        else if(reqDto.getBirthday() == null || String.valueOf(reqDto.getBirthday()).isBlank()){
+            throw new IllegalArgumentException(String.format("잘못된 birthday(%s) 들어왔습니다.", reqDto.getBirthday()));
+        }
+        else if(reqDto.getWorkStartDate() == null || String.valueOf(reqDto.getWorkStartDate()).isBlank()){
+            throw new IllegalArgumentException(String.format("잘못된 workStartDate(%s) 들어왔습니다.", reqDto.getWorkStartDate()));
         }
         this.name = reqDto.getName();
-        this.teamName = reqDto.getTeamName();
+        this.teamSeq = reqDto.getTeamSeq();
         this.role = reqDto.getRole();
         this.birthday = reqDto.getBirthday();
         this.workStartDate = reqDto.getWorkStartDate();
@@ -43,8 +52,8 @@ public class Employee {
         return name;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public Long getTeamSeq() {
+        return teamSeq;
     }
 
     public String getRole() {

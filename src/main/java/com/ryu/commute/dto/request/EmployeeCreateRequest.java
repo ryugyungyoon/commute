@@ -5,7 +5,7 @@ import java.util.Date;
 public class EmployeeCreateRequest {
 
     private String name;
-    private String teamName;
+    private Long teamSeq;
     private String role;
     private Date birthday;
     private Date workStartDate;
@@ -14,8 +14,8 @@ public class EmployeeCreateRequest {
         return name;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public Long getTeamSeq() {
+        return teamSeq;
     }
 
     public String getRole() {

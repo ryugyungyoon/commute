@@ -2,9 +2,9 @@ package com.ryu.commute.dto.request;
 
 public class TeamCreateRequest {
 
-    private String name;
+    private String teamNm;
 
-    public String getName() {
-        return name;
+    public String getTeamNm() {
+        return teamNm;
     }
 }
